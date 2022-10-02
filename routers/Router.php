@@ -10,10 +10,10 @@
     }
 
     private function getPath(): string {
+      $path = substr($_SERVER['REQUEST_URI'], 1);
       /*
-       * offset is 2 cause entry point -> [[http://localhost/app/]] (using ampps)
-       */
-      $path = substr($_SERVER['REQUEST_URI'], 2);
+      * 1 cause entry point -> [[http://localhost/app/]] (using ampps)
+      */
       return explode("/", $path)[1];
     }
 
