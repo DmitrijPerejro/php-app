@@ -4,21 +4,31 @@
 
   class Router
   {
-    public function run() {
-      $controller = $this->getClass($this->getClassName());
-      $controller->index();
+    private array $slugs = [];
+
+    public function __construct()
+    {
+      $path = substr($_SERVER['REQUEST_URI'], 1);
+      $this->slugs = explode("/", $path);
     }
 
-    private function getPath(): string {
-      $path = substr($_SERVER['REQUEST_URI'], 1);
-      /*
-      * 1 cause entry point -> [[http://localhost/app/]] (using ampps)
-      */
-      return explode("/", $path)[1];
+    public function run() {
+      $controller = $this->getClass($this->getClassName());
+      $method = $this->getMethodName();
+
+      if (method_exists($controller, $method)) {
+        $controller->$method();
+      } else {
+        (new NotFound)->index();
+      }
+    }
+
+    private function getMethodName(): string {
+      return empty($this->slugs[2]) ? 'index' : $this->slugs[2];
     }
 
     private function getClassName(): string {
-      return empty($this->getPath()) ? 'Home' : $this->getPath();
+      return empty($this->slugs[1]) ? 'Home' : $this->slugs[1];
     }
 
     private function getClass(string $className) {
