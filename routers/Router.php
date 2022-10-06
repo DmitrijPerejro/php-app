@@ -15,7 +15,10 @@
     public function run() {
       $controller = $this->getClass($this->getClassName());
       $method = $this->getMethodName();
+      $this->runner($controller, $method);
+    }
 
+    private function runner($controller, $method): void {
       if (method_exists($controller, $method)) {
         $controller->$method();
       } else {
