@@ -5,19 +5,18 @@
   {
     private string $name = 'Admin route';
 
-    public function index(): void
+    public function index()
     {
       var_export($this->name);
     }
 
-    public function create(): void
+    public function create()
     {
       var_dump('method create');
     }
 
-    public function delete(): void
+    public function delete()
     {
       var_dump('method delete');
     }
-
   }

@@ -4,18 +4,24 @@
 
   class Router
   {
-    private array $slugs = [];
+    private string $slugs;
+    private array $config;
 
     public function __construct()
     {
-      $path = substr($_SERVER['REQUEST_URI'], 1);
-      $this->slugs = explode("/", $path);
+      $this->slugs = substr($_SERVER['REQUEST_URI'], 5); // skip /app/
+      $this->config = include_once(__DIR__ . "/../config/config.php");
     }
 
     public function run() {
       $controller = $this->getClass($this->getClassName());
       $method = $this->getMethodName();
+
       $this->runner($controller, $method);
+    }
+
+    private function isExistRoute(): bool {
+      return array_key_exists($this->slugs, $this->config);
     }
 
     private function runner($controller, $method): void {
@@ -27,14 +33,26 @@
     }
 
     private function getMethodName(): string {
-      return empty($this->slugs[2]) ? 'index' : $this->slugs[2];
+
+      $res = explode(":", $this->config[$this->slugs]);
+
+      if ($res[1] === null) {
+        return '';
+      }
+
+      return  $res[1];
     }
 
     private function getClassName(): string {
-      return empty($this->slugs[1]) ? 'Home' : $this->slugs[1];
+      $route = explode(":", $this->config[$this->slugs]);
+      return ucfirst($route[0]);  // ClassName
     }
 
-    private function getClass(string $className) {
+    private function getClass($className) {
+      if (!$this->isExistRoute()) {
+        return new NotFound();
+      }
+
       $classPath = 'App\\Controllers\\' . $className;
       return class_exists($classPath) ? new $classPath : new NotFound;
     }

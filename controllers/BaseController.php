@@ -3,5 +3,5 @@
 
   interface BaseController
   {
-    public function index(): void;
+    public function index();
   }

@@ -12,7 +12,9 @@
   "autoload": {
     "psr-4": {
       "App\\Controllers\\": "controllers/",
-      "App\\Routers\\": "routers/"
+      "App\\Routers\\": "routers/",
+      "App\\Models\\": "models/",
+      "App\\View\\": "view/"
     }
   }
 }

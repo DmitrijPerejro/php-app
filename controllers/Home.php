@@ -1,5 +1,7 @@
 <?php
   namespace App\Controllers;
+  use App\Models\Article;
+  use App\View\View;
 
   class Home implements BaseController
   {
@@ -7,6 +9,8 @@
 
     public function index(): void
     {
-      var_export($this->name);
+      $article = new Article;
+      $data['articles'] = $article->getAll();
+      View::generate('articles', $data);
     }
   }
