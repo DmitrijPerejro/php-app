@@ -4,7 +4,6 @@
 <body>
 <?php include __DIR__ . '/../partials/navigation.php'; ?>
 <div class="container">
-  <?php include __DIR__ . '/../partials/navigation.php'; ?>
     <h1 class="mb-5">
       <?php print_r($title); ?> (<?php print_r(count($users)); ?>)
     </h1>

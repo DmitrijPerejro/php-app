@@ -4,7 +4,6 @@
 <body>
     <?php include __DIR__ . '/../partials/navigation.php'; ?>
     <div class="container">
-        <?php include __DIR__ . '/partials/navigation.php'; ?>
         <h1 class="mb-5">
             <?php print_r($title); ?> (<?php print_r(count($articles)); ?>)
         </h1>
@@ -17,7 +16,7 @@
           <?php endforeach; ?>
         </div>
 
-        <?php include __DIR__ . '/partials/footer.php'; ?>
+        <?php include __DIR__ . '/../partials/footer.php'; ?>
     </div>
 </body>
 </html>

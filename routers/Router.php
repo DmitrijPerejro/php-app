@@ -29,10 +29,16 @@
 
     public static function run(): void {
       $requestUri = parse_url($_SERVER['REQUEST_URI'])['path'];
+      var_dump($requestUri);
       $requestMethod = $_SERVER['REQUEST_METHOD'];
       $callback = null;
 
+      var_dump('<pre>');
+      var_dump(explode('/', $requestUri));
+      var_dump('</pre>');
+
       foreach (self::$handlers as $handler) {
+        var_dump($handler['path']);
         if ($handler['method'] === $requestMethod && $handler['path'] === $requestUri) {
           $callback = $handler['handler'];
         }
@@ -43,7 +49,8 @@
           array_merge($_POST, $_GET)
         ]);
       } else {
-        echo 'NOT FOUND';
+        $error = new NotFound;
+        $error->index();
       }
     }
   }

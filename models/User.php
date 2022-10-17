@@ -15,8 +15,15 @@ class User
   }
 
   public function getAll(): array {
-
     $query = "SELECT * from $this->table";
+    $statement = $this->db->prepare($query);
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    return $statement->fetchAll();
+  }
+
+  public function getOne(string $id): array {
+    $query = "SELECT * from $this->table WHERE id = $id";
     $statement = $this->db->prepare($query);
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);
