@@ -1,22 +1,19 @@
 <?php
 
 namespace App\Models;
+use App\Core\DataBase;
+use PDO;
 
 class Article {
+  private string $table = "articles";
+
   public function getAll(): array {
-    return [
-      1 => [
-        'title'=>'title 1',
-        'body'=>'lorem lorem lorem',
-      ],
-      2 => [
-        'title'=>'title 1',
-        'body'=>'lorem lorem lorem',
-      ],
-      3 => [
-        'title'=>'title 1',
-        'body'=>'lorem lorem lorem',
-      ]
-    ];
+    $db = DataBase::getDB();
+
+    $query = "SELECT * from $this->table";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    return $statement->fetchAll();
   }
 }

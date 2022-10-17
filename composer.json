@@ -14,7 +14,11 @@
       "App\\Controllers\\": "controllers/",
       "App\\Routers\\": "routers/",
       "App\\Models\\": "models/",
-      "App\\View\\": "view/"
+      "App\\View\\": "view/",
+      "App\\Core\\": "core/"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }

@@ -8,5 +8,8 @@
     'admin/home/delete' => 'Admin:delete',
     'articles' => 'Articles:index',
     'articles/id' => 'Articles:id',
+    'registration' => 'Registration:index',
+    'login' => 'Login:index',
+    'users' => 'Users:index',
     '404' => 'Error:index',
   ];
