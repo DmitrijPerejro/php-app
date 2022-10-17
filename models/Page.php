@@ -30,6 +30,10 @@ class Page
         'route' => 'registration',
         'title' => 'sign up',
       ],
+      'comments' => [
+        'route' => 'comments',
+        'title' => 'comments',
+      ],
     ];
   }
 

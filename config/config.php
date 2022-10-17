@@ -11,5 +11,6 @@
     'registration' => 'Registration:index',
     'login' => 'Login:index',
     'users' => 'Users:index',
+    'comments' => 'CommentsController:index',
     '404' => 'Error:index',
   ];

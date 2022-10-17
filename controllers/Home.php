@@ -11,6 +11,6 @@
     {
       $article = new Article;
       $data['articles'] = $article->getAll();
-      View::generate('articles', $data);
+      View::generate('home', $data);
     }
   }
