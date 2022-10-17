@@ -9,7 +9,11 @@ class Login implements BaseController
 
   public function index(): void
   {
-    var_dump($_POST);
     View::generate('login', []);
+  }
+
+  public function data($data) {
+    $login = $data['login'];
+    $password = $data['password'];
   }
 }

@@ -6,54 +6,44 @@
   {
     private string $slugs;
     private array $config;
+    private string $POST_REQUEST = 'POST';
+    private string $GET_REQUEST = 'GET';
+    private static array $handlers = [];
 
-    public function __construct()
-    {
-      $this->slugs = substr($_SERVER['REQUEST_URI'], 5); // skip /app/
-      $this->config = include_once(__DIR__ . "/../config/config.php");
+    static public function GET (string $path, $handler): void {
+      self::addHandler('GET', $path, $handler);
     }
 
-    public function run() {
-      $controller = $this->getClass($this->getClassName());
-      $method = $this->getMethodName();
-
-      $this->runner($controller, $method);
+    static public function POST (string $path, $handler): void {
+      self::addHandler('POST', $path, $handler);
     }
 
-    private function isExistRoute(): bool {
-      return array_key_exists($this->slugs, $this->config);
+    static private function addHandler(string $method, string $path, $handler) {
+
+      self::$handlers[] = [
+        'method' => $method,
+        'path' => $path,
+        'handler' => $handler,
+      ];
     }
 
-    private function runner($controller, $method): void {
-      if (method_exists($controller, $method)) {
-        $controller->$method();
+    public static function run(): void {
+      $requestUri = parse_url($_SERVER['REQUEST_URI'])['path'];
+      $requestMethod = $_SERVER['REQUEST_METHOD'];
+      $callback = null;
+
+      foreach (self::$handlers as $handler) {
+        if ($handler['method'] === $requestMethod && $handler['path'] === $requestUri) {
+          $callback = $handler['handler'];
+        }
+      }
+
+      if ($callback !== null) {
+        call_user_func_array($callback, [
+          array_merge($_POST, $_GET)
+        ]);
       } else {
-        (new NotFound)->index();
+        echo 'NOT FOUND';
       }
-    }
-
-    private function getMethodName(): string {
-
-      $res = explode(":", $this->config[$this->slugs]);
-
-      if ($res[1] === null) {
-        return '';
-      }
-
-      return  $res[1];
-    }
-
-    private function getClassName(): string {
-      $route = explode(":", $this->config[$this->slugs]);
-      return ucfirst($route[0]);  // ClassName
-    }
-
-    private function getClass($className) {
-      if (!$this->isExistRoute()) {
-        return new NotFound();
-      }
-
-      $classPath = 'App\\Controllers\\' . $className;
-      return class_exists($classPath) ? new $classPath : new NotFound;
     }
   }

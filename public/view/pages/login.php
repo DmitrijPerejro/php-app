@@ -8,7 +8,7 @@
 <div class="container vh-100">
   <div class="row justify-content-center align-items-center h-100">
     <div class="col-8">
-      <form action="login" class="p-4 shadow rounded" method="POST">
+      <form action="login/data" class="p-4 shadow rounded" method="POST">
         <div class="mb-3">
           <label for="email" class="form-label fs-3">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="email@email.com">
