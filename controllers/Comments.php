@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Controllers;
-use App\Models\Comments;
-use App\View\View;
+namespace Controllers;
+use Models\Comments as A;
+use View\View;
 
-class CommentsController implements BaseController
+class Comments implements BaseController
 {
   private string $name = 'Comments page';
 
   public function index(): void
   {
-    $article = new Comments;
+    $article = new A;
     $data['title'] = $this->name;
     $data['comments'] = $article->getAll();
     View::generate('comments', $data);

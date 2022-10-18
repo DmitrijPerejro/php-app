@@ -1,24 +1,14 @@
 <?php
-use App\Routers\Router;
-use App\Controllers\Home;
-use App\Controllers\Articles;
-use App\Controllers\Users;
-use App\Controllers\Login;
-use App\Controllers\Registration;
+use Routers\Router;
+use Controllers\Home;
+use Controllers\Articles;
+use Controllers\Users;
+use Controllers\Login;
+use Controllers\Registration;
 
 $router = new Router();
 
-$router::GET('/', function () {
-  $route = new Home();
-  $route->index();
-});
-
-$router::GET('/app/', function () {
-  $route = new Home();
-  $route->index();
-});
-
-$router::GET('/app/home', function () {
+$router::GET(['/', '/app/', '/app/home'], function () {
   $route = new Home();
   $route->index();
 });
@@ -26,10 +16,6 @@ $router::GET('/app/home', function () {
 $router::GET('/app/users', function () {
   $route = new Users();
   $route->index();
-});
-
-$router::GET('/app/users/id', function () {
-  var_dump('here');
 });
 
 $router::GET('/app/articles', function () {

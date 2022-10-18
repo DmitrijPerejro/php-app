@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
-use App\View\View;
-use App\Models\User;
+namespace Controllers;
+use View\View;
+use Models\User;
 
 class Registration implements BaseController
 {

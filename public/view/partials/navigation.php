@@ -1,5 +1,5 @@
 <?php
-    use App\Models\Page;
+    use Models\Page;
     $pages = new Page;
     $active = $pages->getActiveRoute();
     var_dump($active);

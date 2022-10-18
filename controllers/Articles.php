@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
-use App\Models\Article;
-use App\View\View;
+namespace Controllers;
+use Models\Article;
+use View\View;
 
 class Articles implements BaseController
 {

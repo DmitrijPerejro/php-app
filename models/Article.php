@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Models;
-use App\Core\DataBase;
+namespace Models;
+use Core\DataBase;
 use PDO;
 
 class Article {

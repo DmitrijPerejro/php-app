@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Controllers;
-use App\View\View;
+namespace Controllers;
+use View\View;
 
 class Login implements BaseController
 {
