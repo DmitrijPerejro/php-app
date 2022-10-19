@@ -1,18 +1,19 @@
 <?php
-
-namespace Controllers;
-use Models\Comments as A;
-use View\View;
-
-class Comments implements BaseController
-{
-  private string $name = 'Comments page';
-
-  public function index(): void
+  
+  namespace Controllers;
+  
+  use Models\Comments as CommnetsModel;
+  use View\View;
+  
+  class Comments implements BaseController
   {
-    $article = new A;
-    $data['title'] = $this->name;
-    $data['comments'] = $article->getAll();
-    View::generate('comments', $data);
+    private string $name = 'Comments page';
+    
+    public function index(): void
+    {
+      $comments = new CommnetsModel;
+      $data['title'] = $this->name;
+      $data['comments'] = $comments->getAll();
+      View::generate('comments', $data);
+    }
   }
-}

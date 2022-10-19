@@ -55,7 +55,7 @@
   try {
     $router::run();
   } catch (\Exception $err) {
-    var_dump($err->getMessage());
+    dump($err->getMessage());
     $error = new Error;
     $error->index();
   }
