@@ -2,7 +2,7 @@
   
   namespace Controllers;
   
-  use Models\Comments as CommnetsModel;
+  use Models\Comments as CommentsModel;
   use View\View;
   
   class Comments implements BaseController
@@ -11,7 +11,7 @@
     
     public function index(): void
     {
-      $comments = new CommnetsModel;
+      $comments = new CommentsModel;
       $data['title'] = $this->name;
       $data['comments'] = $comments->getAll();
       View::generate('comments', $data);
