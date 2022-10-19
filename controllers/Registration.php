@@ -1,29 +1,36 @@
 <?php
-
-namespace Controllers;
-use View\View;
-use Models\User;
-
-class Registration implements BaseController
-{
-  private string $name = 'Registration route';
-  private $model;
-
-  public function __construct()
+  
+  namespace Controllers;
+  
+  use Core\ORM\INSERT;
+  use View\View;
+  
+  class Registration implements BaseController
   {
-    $this->model = new User;
+    private string $name = 'Registration route';
+    private string $table = "users";
+    
+    public function index(): void
+    {
+      View::generate('registration', []);
+    }
+    
+    public function data($data)
+    {
+      $login = $data['login'];
+      $email = $data['email'];
+      $password = $data['password'];
+      
+      $this->registration($login, $email, $password);
+      header('Content-Type: application/json; charset=utf-8');
+      http_response_code(400);
+      echo 'SUCCESS';
+    }
+    
+    private function registration(string $login, string $email, string $password): void
+    {
+      $insert = new INSERT();
+      $insert->setTable($this->table);
+      $insert->execute(['email', 'login', 'password', 'avatar'], ['\'' . $email . '\'', '\'' . $login . '\'', '\'' . $password . '\'', '\'' . 'empty' . '\'']);
+    }
   }
-
-  public function index(): void
-  {
-    View::generate('registration', []);
-  }
-
-  public function data($data) {
-    $login = $data['login'];
-    $email = $data['email'];
-    $password = $data['password'];
-
-    $this->model->registration($login, $email, $password);
-  }
-}

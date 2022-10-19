@@ -48,9 +48,7 @@
   
   $router::POST('/app/registration/data', function () {
     $route = new Registration();
-    $routeUser = new Users();
     $route->data($_POST);
-    $routeUser->index();
   });
   
   

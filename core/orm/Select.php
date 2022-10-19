@@ -45,10 +45,10 @@
     {
       $connect = new Connector();
       $PDO = $connect->connect();
-      return $PDO->query(($this->get()));
+      return $PDO->query(($this->sql()));
     }
     
-    public function get(): string
+    public function sql(): string
     {
       return "SELECT $this->columns FROM $this->table";
     }
