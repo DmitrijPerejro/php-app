@@ -15,7 +15,8 @@
       "Routers\\": "routers/",
       "Models\\": "models/",
       "View\\": "view/",
-      "Core\\": "core/"
+      "Core\\": "core/",
+      "Core\\ORM\\": "core/orm/"
     }
   },
   "require": {

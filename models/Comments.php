@@ -1,23 +1,19 @@
 <?php
-
-namespace Models;
-use Core\DataBase;
-use PDO;
-
-class Comments {
-  private string $commentsTable = "comments";
-  private string $articlesTable = "articles";
-  private string $usersTable = "users";
-
-  public function getAll(): array {
-    $db = DataBase::getDB();
-
-    $query = "SELECT * from $this->commentsTable";
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
-    $commentsRes = $statement->fetchAll();
-
-    return $commentsRes;
+  
+  namespace Models;
+  
+  use Core\ORM\Select;
+  use PDO;
+  
+  class Comments
+  {
+    private string $table = "comments";
+    
+    public function getAll(): array
+    {
+      $select = new Select();
+      $select->setTable($this->table);
+      $data = $select->execute();
+      return $data->fetchAll(PDO::FETCH_ASSOC);
+    }
   }
-}
