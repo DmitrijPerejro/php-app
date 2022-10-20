@@ -23,8 +23,10 @@
       
       $this->registration($login, $email, $password);
       header('Content-Type: application/json; charset=utf-8');
-      http_response_code(400);
-      echo 'SUCCESS';
+      http_response_code(200);
+      echo json_encode([
+        'status' => 'ok',
+      ]);
     }
     
     private function registration(string $login, string $email, string $password): void

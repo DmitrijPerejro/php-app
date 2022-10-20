@@ -33,5 +33,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+
+        form.querySelectorAll(('input')).forEach(((item) => {
+            formData.set(item.getAttribute('name'), item.value)
+        }));
+
+        try {
+            const response = await fetch(form.getAttribute('action'), {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.json();
+            document.location.href = 'users';
+        } catch (err) {
+        }
+    })
+</script>
 </body>
 </html>
