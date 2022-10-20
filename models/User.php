@@ -18,3 +18,5 @@
       return $data->fetchAll(PDO::FETCH_ASSOC);
     }
   }
+  
+  // HW

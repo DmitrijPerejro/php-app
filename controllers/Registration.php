@@ -34,3 +34,5 @@
       $insert->execute(['email', 'login', 'password', 'avatar'], ['\'' . $email . '\'', '\'' . $login . '\'', '\'' . $password . '\'', '\'' . 'empty' . '\'']);
     }
   }
+  
+  // HW
