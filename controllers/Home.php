@@ -1,12 +1,15 @@
 <?php
-  namespace App\Controllers;
-
+  
+  namespace Controllers;
+  
+  use View\View;
+  
   class Home implements BaseController
   {
     private string $name = 'Home route';
-
+    
     public function index(): void
     {
-      var_export($this->name);
+      View::generate('home', []);
     }
   }

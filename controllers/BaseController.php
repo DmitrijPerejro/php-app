@@ -1,7 +1,7 @@
 <?php
-  namespace App\Controllers;
+  namespace Controllers;
 
   interface BaseController
   {
-    public function index(): void;
+    public function index();
   }

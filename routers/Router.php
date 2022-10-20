@@ -1,41 +1,64 @@
 <?php
-  namespace App\Routers;
-  use App\Controllers\Error as NotFound;
-
+  
+  namespace Routers;
+  
   class Router
   {
-    private array $slugs = [];
-
-    public function __construct()
+    private static string $POST_REQUEST = 'POST';
+    private static string $GET_REQUEST = 'GET';
+    private static array $handlers = [];
+    
+    static public function GET($path, $handler): void
     {
-      $path = substr($_SERVER['REQUEST_URI'], 1);
-      $this->slugs = explode("/", $path);
+      self::addHandler(self::$GET_REQUEST, $path, $handler);
     }
-
-    public function run() {
-      $controller = $this->getClass($this->getClassName());
-      $method = $this->getMethodName();
-      $this->runner($controller, $method);
-    }
-
-    private function runner($controller, $method): void {
-      if (method_exists($controller, $method)) {
-        $controller->$method();
+    
+    static private function addHandler(string $method, $path, $handler): void
+    {
+      if (is_array($path)) {
+        foreach ($path as $currentPath) {
+          self::bindRoute($method, $currentPath, $handler);
+        }
       } else {
-        (new NotFound)->index();
+        self::bindRoute($method, $path, $handler);
       }
     }
-
-    private function getMethodName(): string {
-      return empty($this->slugs[2]) ? 'index' : $this->slugs[2];
+    
+    private static function bindRoute(string $method, $path, $handler): void
+    {
+      self::$handlers[] = [
+        'method' => $method,
+        'path' => $path,
+        'handler' => $handler,
+      ];
     }
-
-    private function getClassName(): string {
-      return empty($this->slugs[1]) ? 'Home' : $this->slugs[1];
+    
+    static public function POST($path, $handler): void
+    {
+      self::addHandler(self::$POST_REQUEST, $path, $handler);
     }
-
-    private function getClass(string $className) {
-      $classPath = 'App\\Controllers\\' . $className;
-      return class_exists($classPath) ? new $classPath : new NotFound;
+    
+    /**
+     * @throws \Exception
+     */
+    public static function run(): void
+    {
+      $requestUri = parse_url($_SERVER['REQUEST_URI'])['path'];
+      $requestMethod = $_SERVER['REQUEST_METHOD'];
+      $callback = null;
+      
+      foreach (self::$handlers as $handler) {
+        if ($handler['method'] === $requestMethod && $handler['path'] === $requestUri) {
+          $callback = $handler['handler'];
+        }
+      }
+      
+      if ($callback !== null) {
+        call_user_func_array($callback, [
+          array_merge($_POST, $_GET)
+        ]);
+      } else {
+        throw new \Exception('Route not found', 400);
+      }
     }
   }

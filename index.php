@@ -1,6 +1,6 @@
 <?php
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');
   require 'vendor/autoload.php';
-  use App\Routers\Router;
-
-  $router = new Router();
-  $router->run();
+  include_once __DIR__ . '/extensions/dump.php';
+  include_once __DIR__ . '/routers/routing.php';

@@ -1,5 +1,6 @@
 <?php
-  namespace App\Controllers;
+  namespace Controllers;
+  use View\View;
 
   class Error implements BaseController
   {
@@ -7,6 +8,6 @@
 
     public function index(): void
     {
-      var_export($this->name);
+      View::generate('404', []);
     }
   }

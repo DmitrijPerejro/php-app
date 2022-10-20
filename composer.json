@@ -11,8 +11,15 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\Controllers\\": "controllers/",
-      "App\\Routers\\": "routers/"
+      "Controllers\\": "controllers/",
+      "Routers\\": "routers/",
+      "Models\\": "models/",
+      "View\\": "view/",
+      "Core\\": "core/",
+      "Core\\ORM\\": "core/orm/"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }
