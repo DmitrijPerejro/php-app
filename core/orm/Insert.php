@@ -47,7 +47,7 @@
     }
     
     /**
-     * @param string $column
+     * @param array $column
      */
     public function setColumn(array $column): void
     {
@@ -63,7 +63,7 @@
     }
     
     /**
-     * @param string $value
+     * @param array $value
      */
     public function setValue(array $value): void
     {
