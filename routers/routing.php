@@ -4,8 +4,6 @@
   use Controllers\Home;
   use Controllers\Articles;
   use Controllers\Users;
-  use Controllers\Login;
-  use Controllers\Registration;
   use Controllers\Comments;
   use Controllers\Error;
   
@@ -21,6 +19,16 @@
     $route->index();
   });
   
+  $router::GET('/app/users/new', function () {
+    $route = new Users();
+    $route->new();
+  });
+  
+  $router::POST('/app/users/new', function () {
+    $route = new Users();
+    $route->newUser($_POST);
+  });
+  
   $router::GET('/app/articles', function () {
     $route = new Articles();
     $route->index();
@@ -31,24 +39,19 @@
     $route->index();
   });
   
-  $router::GET('/app/login', function () {
-    $route = new Login();
-    $route->index();
+  $router::POST('/app/comment/new', function () {
+    $route = new Comments();
+    $route->new($_POST);
   });
   
-  $router::POST('/app/login/data', function () {
-    $route = new Login();
-    $route->data($_POST);
+  $router::GET('/app/articles/new', function () {
+    $route = new Articles();
+    $route->new();
   });
   
-  $router::GET('/app/registration', function () {
-    $route = new Registration();
-    $route->index();
-  });
-  
-  $router::POST('/app/registration/data', function () {
-    $route = new Registration();
-    $route->data($_POST);
+  $router::POST('/app/articles/new', function () {
+    $route = new Articles();
+    $route->create($_POST);
   });
   
   

@@ -15,7 +15,7 @@
     
     public function __construct()
     {
-      $config = include_once __DIR__ . '/config.php';
+      $config = include __DIR__ . '/config.php';
       
       $this->db = $config['db'];
       $this->host = $config['host'];

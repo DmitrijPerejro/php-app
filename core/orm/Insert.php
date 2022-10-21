@@ -4,9 +4,11 @@
   
   use Core\ORM\Connector;
   
-  class INSERT
+  class Insert
   {
     protected string $table;
+    protected string $column;
+    protected string $value;
     
     /**
      * @return string
@@ -24,17 +26,63 @@
       $this->table = $table;
     }
     
-    public function execute(array $fields, array $values)
+    public function execute(array $data): void
     {
-      
       $connect = new Connector();
       $PDO = $connect->connect();
-      return $PDO->query(($this->sql($fields, $values)));
+      $PDO->query(($this->sql($data)));
     }
     
-    public function sql(array $fields, array $values): string
+    public function sql(array $data): string
     {
-      return 'INSERT INTO ' . $this->table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
+      return 'INSERT INTO ' . $this->table . ' (' . $this->getColumn() . ') VALUES (' . $this->getValue() . ')';
+    }
+    
+    /**
+     * @return string
+     */
+    public function getColumn(): string
+    {
+      return $this->column;
+    }
+    
+    /**
+     * @param string $column
+     */
+    public function setColumn(array $column): void
+    {
+      $this->column = implode(',', $column);
+    }
+    
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+      return $this->value;
+    }
+    
+    /**
+     * @param string $value
+     */
+    public function setValue(array $value): void
+    {
+      $this->value = $this->prepareValues($value);
+    }
+    
+    private function prepareValues(array $values): string
+    {
+      $res = '';
+      
+      foreach ($values as $value) {
+        if (empty($res)) {
+          $res .= '\'' . $value . '\'';
+        } else {
+          $res .= ', \'' . $value . '\'';
+        }
+      }
+      
+      return $res;
     }
     
   }

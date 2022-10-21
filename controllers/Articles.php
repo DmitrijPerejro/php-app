@@ -22,8 +22,18 @@
       View::generate('articles', $data);
     }
     
+    public function new(): void
+    {
+      View::generate('article-new', []);
+    }
+    
     public function create(array $data): void
     {
+      if (empty($data)) {
+        dump('Not data provided');
+        return;
+      }
+      
       $this->model->create($data);
     }
     

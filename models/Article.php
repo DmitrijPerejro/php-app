@@ -3,6 +3,7 @@
   namespace Models;
   
   use Core\ORM\Select;
+  use Core\ORM\Insert;
   use PDO;
   
   class Article
@@ -19,7 +20,15 @@
     
     public function create(array $data): void
     {
-      var_dump($data);
+      dump($data);
+      dump(array_keys($data));
+      dump(array_values($data));
+      
+      $insert = new Insert();
+      $insert->setTable($this->table);
+      $insert->setColumn(array_keys($data));
+      $insert->setValue(array_values($data));
+      $insert->execute($data);
     }
     
     public function edit(string $id, string $field, string $value): void
