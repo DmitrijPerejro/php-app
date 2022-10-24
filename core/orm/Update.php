@@ -4,11 +4,26 @@
   
   use Core\ORM\Connector;
   
-  class Insert
+  class Update
   {
     protected string $table;
     protected string $column;
     protected string $value;
+    protected string $where;
+    
+    public function execute(): void
+    {
+      $connect = new Connector();
+      $PDO = $connect->connect();
+      $PDO->query(($this->sql()));
+    }
+    
+    public function sql(): string
+    {
+      $res = 'UPDATE ' . $this->getTable() . ' SET ' . $this->getColumn() . ' = ' . $this->getValue() . ' WHERE ' . $this->getWhere();
+      dump($res);
+      return $res;
+    }
     
     /**
      * @return string
@@ -24,18 +39,6 @@
     public function setTable(string $table): void
     {
       $this->table = $table;
-    }
-    
-    public function execute(): void
-    {
-      $connect = new Connector();
-      $PDO = $connect->connect();
-      $PDO->query(($this->sql()));
-    }
-    
-    public function sql(): string
-    {
-      return 'INSERT INTO ' . $this->table . ' (' . $this->getColumn() . ') VALUES (' . $this->getValue() . ')';
     }
     
     /**
@@ -68,6 +71,22 @@
     public function setValue(array $value): void
     {
       $this->value = $this->prepareValues($value);
+    }
+    
+    /**
+     * @return string
+     */
+    public function getWhere(): string
+    {
+      return $this->where;
+    }
+    
+    /**
+     * @param string $where
+     */
+    public function setWhere(string $where): void
+    {
+      $this->where = $where;
     }
     
     private function prepareValues(array $values): string

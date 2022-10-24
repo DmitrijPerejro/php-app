@@ -9,7 +9,7 @@
   
   $router = new Router();
   
-  $router::GET(['/', '/app/', '/app/home'], function () {
+  $router::GET(['/app/', '/app', '/app/home'], function () {
     $route = new Home();
     $route->index();
   });
@@ -19,19 +19,34 @@
     $route->index();
   });
   
-  $router::GET('/app/users/new', function () {
-    $route = new Users();
-    $route->new();
-  });
-  
-  $router::POST('/app/users/new', function () {
-    $route = new Users();
-    $route->newUser($_POST);
-  });
-  
-  $router::GET('/app/articles', function () {
+  $router::GET('/app/articles', function ($params) {
     $route = new Articles();
-    $route->index();
+    
+    $search = $params[0]['search'] ?? null;
+    $page = $params[0]['page'] ?? null;
+    
+    dump($params);
+    
+    $route->index($page ?? 1, $search);
+  });
+  
+  $router::GET('/app/articles/:id', function ($params) {
+    $route = new Articles();
+    $route->one($params['extra']['id']);
+  });
+  
+  $router::POSt('/app/articles/:id/delete', function ($params) {
+    $route = new Articles();
+    $id = $params['extra']['id'];
+    $route->delete($id);
+    header('Location: /app/articles');
+  });
+  
+  $router::POSt('/app/articles/:id/like', function ($params) {
+    $route = new Articles();
+    $id = $params['extra']['id'];
+    $route->update($id);
+    header('Location: /app/articles');
   });
   
   $router::GET('/app/comments', function () {
@@ -52,6 +67,7 @@
   $router::POST('/app/articles/new', function () {
     $route = new Articles();
     $route->create($_POST);
+    header('Location: /app/articles');
   });
   
   

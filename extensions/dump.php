@@ -1,9 +1,10 @@
 <?php
   function dump($code): void
   {
-    echo('<pre style="color: #fff; background-color: rgba(0, 0, 0, .6); font-weight: bold; padding: 20px">');
-    echo('<code>');
+    echo('<div class="alert alert-warning alert-dismissible fade show">');
+    echo('<pre>');
     var_dump($code);
-    echo('</code>');
     echo('</pre>');
+    echo('<button type="button" class="btn-close" data-bs-dismiss="alert"></button>');
+    echo('</div>');
   }
