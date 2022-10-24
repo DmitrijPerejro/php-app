@@ -4,22 +4,37 @@
 <body>
 <?php include __DIR__ . '/../partials/navigation.php'; ?>
 <div class="container">
-    <h1 class="mb-5">
-      <?php print_r($title); ?> (<?php print_r(count($articles)); ?>)
-        <a href="articles/new" class="btn btn-success">
-            new article
-        </a>
-    </h1>
-
-    <div class="row">
-      <?php foreach ($articles as $article): ?>
-          <div class="col col-md-4 mb-4">
-            <?php include __DIR__ . '/../partials/article.php'; ?>
-          </div>
-      <?php endforeach; ?>
-    </div>
   
-  <?php include __DIR__ . '/../partials/footer.php'; ?>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="articles/new" class="btn btn-outline-success">
+      Create new article
+    </a>
+    <h2>
+      Total articles: <?= $total; ?>
+    </h2>
+    <?php include __DIR__ . '/../partials/search-form.php'; ?>
+  </div>
+  
+  
+  <?php
+    if ($totalPages > 1) {
+      include __DIR__ . '/../partials/page-pagination.php';
+    }
+  ?>
+  
+  <div class="row">
+    <?php foreach ($articles as $article): ?>
+      <div class="col col-md-4 mb-4">
+        <?php include __DIR__ . '/../partials/article.php'; ?>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  
+  <?php
+    if ($totalPages > 1) {
+      include __DIR__ . '/../partials/page-pagination.php';
+    }
+  ?>
 </div>
 </body>
 </html>

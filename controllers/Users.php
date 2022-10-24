@@ -27,7 +27,7 @@
       try {
         
         if (empty($data)) {
-          dump('Not data provided');
+          dump('Data not provided');
           return;
         }
         
