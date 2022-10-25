@@ -8,16 +8,16 @@
 ?>
 
 <header>
-  <hr>
-  <div class="container">
-    <nav class="navigation">
-      <?php foreach ($pages->getAll() as $page): ?>
-        <a href="<?= $page['route'] ?>"
-           class="text-uppercase fw-semibold <?= $active === $page['route'] ? 'text-info' : 'text-decoration-none' ?>">
-          <?= $page['title'] ?>
-        </a>
-      <?php endforeach; ?>
-    </nav>
-  </div>
-  <hr>
+  <div class="navbar bg-light py-3 mb-5">
+    <div class="container">
+      <div>
+        <?php foreach ($pages->getAll() as $page): ?>
+          <a href="<?= $page['route'] ?>"
+             class="btn text-uppercase <?= $active === $page['route'] ? 'btn btn-primary' : '' ?>"
+          >
+            <?= $page['title'] ?>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </div>
 </header>
