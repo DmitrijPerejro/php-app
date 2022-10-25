@@ -22,17 +22,9 @@
     
     public function login(array $data)
     {
-      $errors = [];
-      
-      foreach ($data as $name => $value) {
-        if (empty($value)) {
-          $errors["$name"] = 'Field is empty';
-        }
-      }
-      
-      if (!empty($errors)) {
+      if (!empty($this->validation($data))) {
         View::generate('login', [
-          'errors' => $errors
+          'errors' => $this->validation($data)
         ]);
         return;
       }
@@ -53,5 +45,18 @@
          */
         dump($res);
       }
+    }
+    
+    private function validation(array $data): array
+    {
+      $errors = [];
+      
+      foreach ($data as $name => $value) {
+        if (empty($value)) {
+          $errors["$name"] = 'Field is empty';
+        }
+      }
+      
+      return $errors;
     }
   }
