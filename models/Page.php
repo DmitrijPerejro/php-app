@@ -27,6 +27,14 @@
           'route' => '/app/comments',
           'title' => 'comments',
         ],
+        'login' => [
+          'route' => '/app/login',
+          'title' => 'login',
+        ],
+        'registration' => [
+          'route' => '/app/registration',
+          'title' => 'registration',
+        ],
       ];
     }
     

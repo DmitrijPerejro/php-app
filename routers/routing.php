@@ -6,6 +6,7 @@
   use Controllers\Users;
   use Controllers\Comments;
   use Controllers\Error;
+  use Controllers\Auth;
   
   $router = new Router();
   
@@ -68,6 +69,26 @@
     $route = new Articles();
     $route->create($_POST);
     header('Location: /app/articles');
+  });
+  
+  $router::GET('/app/registration', function () {
+    $route = new Auth();
+    $route->registration_get();
+  });
+  
+  $router::POST('/app/registration', function () {
+    $route = new Auth();
+    $route->registration_post($_POST);
+  });
+  
+  $router::GET('/app/login', function () {
+    $route = new Auth();
+    $route->login_get();
+  });
+  
+  $router::POST('/app/login', function () {
+    $route = new Auth();
+    $route->login_post($_POST);
   });
   
   

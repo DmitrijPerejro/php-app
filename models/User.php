@@ -18,13 +18,30 @@
       return $data->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function new(array $data): void
+    public function registration(array $data): void
     {
+      /*
+       * TODO: Add validation for exist user['email']
+       */
       
       $insert = new Insert();
       $insert->setTable($this->table);
       $insert->setColumn(array_keys($data));
       $insert->setValue(array_values($data));
       $insert->execute($data);
+    }
+    
+    public function login(array $data): array
+    {
+      $email = $data['email'];
+      /*
+       * TODO: Add handler when passwords not equals
+       */
+      
+      $select = new Select();
+      $select->setTable($this->table);
+      $select->setWhere("email = '$email'");
+      $data = $select->execute();
+      return $data->fetchAll(PDO::FETCH_ASSOC);
     }
   }
