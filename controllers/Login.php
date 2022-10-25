@@ -7,8 +7,7 @@
   
   class Login implements BaseController
   {
-    private string $name = 'Login route';
-    private $model;
+    private User $model;
     
     public function __construct()
     {
