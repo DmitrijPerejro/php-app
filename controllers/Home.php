@@ -3,6 +3,7 @@
   namespace Controllers;
   
   use View\View;
+  use Core\Cookies;
   
   class Home implements BaseController
   {
@@ -10,6 +11,8 @@
     
     public function index(): void
     {
+      
+      
       View::generate('home', []);
     }
   }

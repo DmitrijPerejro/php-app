@@ -34,10 +34,6 @@
     public function login(array $data): array
     {
       $email = $data['email'];
-      /*
-       * TODO: Add handler when passwords not equals
-       */
-      
       $select = new Select();
       $select->setTable($this->table);
       $select->setWhere("email = '$email'");
