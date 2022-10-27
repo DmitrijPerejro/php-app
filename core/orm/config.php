@@ -1,7 +1,7 @@
 <?php
   return [
     'db' => 'app',
-    'host' => 'https://app.perejro.me',
+    'host' => 'app.perejro.me',
     'username' => 'root',
     'password' => '?CRo5hR=',
   ];
