@@ -10,17 +10,17 @@
   
   $router = new Router();
   
-  $router::GET(['/app/', '/app', '/app/home'], function () {
+  $router::GET(['/', '/app', '/app/home'], function () {
     $route = new Home();
     $route->index();
   });
   
-  $router::GET('/app/users', function () {
+  $router::GET('/users', function () {
     $route = new Users();
     $route->index();
   });
   
-  $router::GET('/app/articles', function ($params) {
+  $router::GET('/articles', function ($params) {
     $route = new Articles();
     
     $search = $params[0]['search'] ?? null;
@@ -31,62 +31,62 @@
     $route->index($page ?? 1, $search);
   });
   
-  $router::GET('/app/articles/:id', function ($params) {
+  $router::GET('/articles/:id', function ($params) {
     $route = new Articles();
     $route->one($params['extra']['id']);
   });
   
-  $router::POSt('/app/articles/:id/delete', function ($params) {
+  $router::POSt('/articles/:id/delete', function ($params) {
     $route = new Articles();
     $id = $params['extra']['id'];
     $route->delete($id);
     header('Location: /app/articles');
   });
   
-  $router::POSt('/app/articles/:id/like', function ($params) {
+  $router::POSt('/articles/:id/like', function ($params) {
     $route = new Articles();
     $id = $params['extra']['id'];
     $route->update($id);
     header('Location: /app/articles');
   });
   
-  $router::GET('/app/comments', function () {
+  $router::GET('/comments', function () {
     $route = new Comments();
     $route->index();
   });
   
-  $router::POST('/app/comment/new', function () {
+  $router::POST('/comment/new', function () {
     $route = new Comments();
     $route->new($_POST);
   });
   
-  $router::GET('/app/articles/new', function () {
+  $router::GET('/articles/new', function () {
     $route = new Articles();
     $route->new();
   });
   
-  $router::POST('/app/articles/new', function () {
+  $router::POST('/articles/new', function () {
     $route = new Articles();
     $route->create($_POST);
     header('Location: /app/articles');
   });
   
-  $router::GET('/app/registration', function () {
+  $router::GET('/registration', function () {
     $route = new Auth();
     $route->registration_get();
   });
   
-  $router::POST('/app/registration', function () {
+  $router::POST('/registration', function () {
     $route = new Auth();
     $route->registration_post($_POST);
   });
   
-  $router::GET('/app/login', function () {
+  $router::GET('/login', function () {
     $route = new Auth();
     $route->login_get();
   });
   
-  $router::POST('/app/login', function () {
+  $router::POST('/login', function () {
     $route = new Auth();
     $route->login_post($_POST);
   });
