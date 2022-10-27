@@ -13,7 +13,14 @@
         <h2 class="text-center">LOGIN</h2>
         <div class="mb-3">
           <label for="email" class="form-label fs-3">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="email@email.com">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="email@email.com"
+            value="<?= isset($values['email']) ? $values['email'] : '' ?>"
+          >
           <?php if (isset($errors['email'])): ?>
             <small class="text-danger mt-2 d-inline-block">
               <?= $errors['email'] ?>
@@ -29,9 +36,17 @@
             </small>
           <?php endif; ?>
         </div>
-        <button type="submit" class="btn btn-primary w-100 p-2 text-uppercase fs-5">
-          submit
-        </button>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="remember" name="remember">
+          <label class="form-check-label" for="remember">
+            Remember me
+          </label>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary w-50 p-2 text-uppercase fs-5">
+            submit
+          </button>
+        </div>
         <div class="mt-3 text-end">
           <small>
             <a href="registration" class="text-decoration-none">I don't have an account</a>

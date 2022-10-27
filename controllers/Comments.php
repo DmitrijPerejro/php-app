@@ -2,7 +2,7 @@
   
   namespace Controllers;
   
-  use Models\Comments as CommentsModel;
+  use Models\Comments as Model;
   use View\View;
   
   class Comments implements BaseController
@@ -10,9 +10,10 @@
     private string $name = 'Comments page';
     private $model;
     
+    
     public function __construct()
     {
-      $this->model = new CommentsModel();
+      $this->model = new Model;
     }
     
     public function index(): void

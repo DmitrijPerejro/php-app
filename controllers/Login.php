@@ -4,14 +4,17 @@
   
   use Models\User;
   use View\View;
+  use Core\Crypto;
   
   class Login implements BaseController
   {
     private User $model;
+    private Crypto $crypto;
     
     public function __construct()
     {
       $this->model = new User();
+      $this->crypto = new Crypto();
     }
     
     public function index(): void
@@ -21,16 +24,16 @@
     
     public function login(array $data)
     {
-      if (!empty($this->validation($data))) {
+      if (!empty($this->validationEmptyField($data))) {
         View::generate('login', [
-          'errors' => $this->validation($data)
+          'errors' => $this->validationEmptyField($data)
         ]);
         return;
       }
       
-      $res = $this->model->login($data);
+      $user = $this->model->login($data)[0];
       
-      if (empty($res)) {
+      if (empty($user)) {
         $email = $data['email'];
         
         View::generate('login', [
@@ -38,15 +41,26 @@
             'email' => "User with email <b>$email</b> doesn't exist",
           ]
         ]);
-      } else {
-        /*
-         * TODO: Do something
-         */
-        dump($res);
+        return;
       }
+      
+      if (!$this->validationPassword($data['password'], $user['password'])) {
+        View::generate('login', [
+          'errors' => [
+            'password' => "Password is not valid",
+          ],
+          'values' => [
+            'email' => $data['email']
+          ]
+        ]);
+        return;
+      }
+      
+      dump($data);
+      dump($user);
     }
     
-    private function validation(array $data): array
+    private function validationEmptyField(array $data): array
     {
       $errors = [];
       
@@ -57,5 +71,10 @@
       }
       
       return $errors;
+    }
+    
+    private function validationPassword(string $password, string $hash): bool
+    {
+      return $this->crypto->decrypt($password, $hash);
     }
   }
