@@ -35,7 +35,17 @@
         </div>
         <div class="mb-3">
           <label for="password" class="form-label fs-3">Password</label>
-          <input type="password" class="form-control" name="password" id="password">
+          <div class="position-relative">
+            <input type="password" class="form-control" name="password" id="password">
+            <button
+              class="position-absolute btn btn-outline-dark btn-sm top-50 end-0 me-3 translate-middle-y rounded-circle p-0 d-flex justify-content-center align-items-center"
+              style="width: 28px; height: 28px"
+              type="button"
+              id="showPassword"
+            >
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
           <?php if (isset($errors['password'])): ?>
             <small class="text-danger mt-2 d-inline-block">
               <?= $errors['password'] ?>
@@ -54,5 +64,11 @@
     </div>
   </div>
 </div>
+
+<!--<script src="--><? //= __DIR__ ?><!-- . '/../../assets/js/inputChangeType.js'"></script>-->
+<script src="/app/public/assets//js/inputChangeType.js"></script>
+<script>
+  inputChangeType('showPassword', 'password')
+</script>
 </body>
 </html>
