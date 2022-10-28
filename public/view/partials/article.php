@@ -11,18 +11,6 @@
     <p class="card-text flex-grow-1">
       <?= $article['body']; ?>
     </p>
-    <div class="d-flex justify-content-between">
-      <form class="mb-0" action="<?= $baseUrl ?>/articles/<?= $article['id'] ?>/like" method="POST">
-        <button class="btn btn-success">
-          likes: <?= $article['likes']; ?>
-        </button>
-      </form>
-      <form class="mb-0" action="<?= $baseUrl ?>/articles/<?= $article['id'] ?>/delete" method="POST">
-        <button class="btn btn-danger">
-          Delete
-        </button>
-      </form>
-    </div>
     <a href="<?= $baseUrl ?>/articles/<?= $article['id']; ?>" class="btn btn-primary d-block w-100 mt-2">
       read more
     </a>

@@ -37,20 +37,6 @@
     $route->one($params['extra']['id']);
   });
   
-  $router::POSt("$baseUrl/articles/:id/delete", function ($params) {
-    $route = new Articles();
-    $id = $params['extra']['id'];
-    $route->delete($id);
-    header('Location: /app/articles');
-  });
-  
-  $router::POSt("$baseUrl/articles/:id/like", function ($params) {
-    $route = new Articles();
-    $id = $params['extra']['id'];
-    $route->update($id);
-    header('Location: /app/articles');
-  });
-  
   $router::GET("$baseUrl/comments", function () {
     $route = new Comments();
     $route->index();

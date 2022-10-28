@@ -49,20 +49,4 @@
       
       $this->model->create($data);
     }
-    
-    public function like(string $id): void
-    {
-    
-    }
-    
-    public function update(string $id): void
-    {
-      $this->model->likes($id);
-    }
-    
-    public function delete(string $id): void
-    {
-      $this->model->delete($id);
-    }
-    
   }
