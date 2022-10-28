@@ -50,7 +50,16 @@
     
     $route = new Articles();
     $id = $params['extra']['id'];
-    $route->update($id);
+    $route->like($id);
+    header("Location: $baseUrl/articles");
+  });
+  
+  $router::POSt("$baseUrl/articles/:id/update", function ($params) {
+    global $baseUrl;
+    
+    $route = new Articles();
+    $id = $params['extra']['id'];
+    $route->fields($id, $_POST);
     header("Location: $baseUrl/articles");
   });
   

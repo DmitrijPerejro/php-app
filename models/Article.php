@@ -2,11 +2,11 @@
   
   namespace Models;
   
+  use PDO;
   use Core\ORM\Select;
   use Core\ORM\Insert;
-  use Core\ORM\Delete;
   use Core\ORM\Update;
-  use PDO;
+  use Core\ORM\Delete;
   
   class Article
   {
@@ -61,28 +61,20 @@
       $insert->execute();
     }
     
-    public function update(string $id): void
+    public function update(array $data, string $where): void
     {
-      $select = new Select();
+      $select = new Update();
       $select->setTable($this->table);
-      $select->setColumns('likes');
-      $select->setWhere("id = $id");
-      $data = $select->execute();
-      $likes = $data->fetchAll(PDO::FETCH_ASSOC)[0]['likes'];
-      
-      $update = new Update();
-      $update->setTable($this->table);
-      $update->setWhere("id = $id");
-      $update->setColumn(['likes']);
-      $update->setValue([$likes + 1]);
-      $update->execute();
+      $select->setValue($data);
+      $select->setWhere($where);
+      $select->execute();
     }
     
-    public function delete(string $id): void
+    public function delete(string $where): void
     {
       $delete = new Delete();
       $delete->setTable($this->table);
-      $delete->setWhere("id = $id");
+      $delete->setWhere($where);
       $delete->execute();
     }
   }

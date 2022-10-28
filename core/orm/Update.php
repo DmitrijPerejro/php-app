@@ -7,7 +7,6 @@
   class Update
   {
     protected string $table;
-    protected string $column;
     protected string $value;
     protected string $where;
     
@@ -20,9 +19,7 @@
     
     public function sql(): string
     {
-      $res = 'UPDATE ' . $this->getTable() . ' SET ' . $this->getColumn() . ' = ' . $this->getValue() . ' WHERE ' . $this->getWhere();
-      dump($res);
-      return $res;
+      return 'UPDATE ' . $this->getTable() . ' SET ' . $this->getValue() . ' WHERE ' . $this->getWhere();
     }
     
     /**
@@ -44,33 +41,17 @@
     /**
      * @return string
      */
-    public function getColumn(): string
-    {
-      return $this->column;
-    }
-    
-    /**
-     * @param array $column
-     */
-    public function setColumn(array $column): void
-    {
-      $this->column = implode(',', $column);
-    }
-    
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
       return $this->value;
     }
     
     /**
-     * @param array $value
+     * @param array $values
      */
-    public function setValue(array $value): void
+    public function setValue(array $values): void
     {
-      $this->value = $this->prepareValues($value);
+      $this->value = $this->prepareValues($values);
     }
     
     /**
@@ -93,11 +74,11 @@
     {
       $res = '';
       
-      foreach ($values as $value) {
+      foreach ($values as $key => $value) {
         if (empty($res)) {
-          $res .= '\'' . $value . '\'';
+          $res .= "$key = '$value'";
         } else {
-          $res .= ', \'' . $value . '\'';
+          $res .= ", $key = '$value'";
         }
       }
       

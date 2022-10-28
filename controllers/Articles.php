@@ -50,13 +50,27 @@
       $this->model->create($data);
     }
     
-    public function update(array $data): void
+    public function like(string $id): void
     {
-      $this->model->update($data);
+      $this->model->update([
+        'likes' => 3,
+      ],
+        "id = $id"
+      );
+    }
+    
+    public function fields(string $id, array $data): void
+    {
+      $this->model->update([
+        'title' => $data['title'],
+        'body' => $data['body'],
+      ],
+        "id = $id"
+      );
     }
     
     public function delete(string $id): void
     {
-      $this->model->delete($id);
+      $this->model->delete("id = $id");
     }
   }
