@@ -9,84 +9,85 @@
   use Controllers\Auth;
   
   $router = new Router();
+  $config = getConfig();
   
-  $router::GET(['/', '/app', '/app/home'], function () {
+  $baseUrl = $config['routing']['base'];
+  
+  $router::GET(["$baseUrl", "$baseUrl/home"], function () {
     $route = new Home();
     $route->index();
   });
   
-  $router::GET('/app/users', function () {
+  $router::GET("$baseUrl/users", function () {
     $route = new Users();
     $route->index();
   });
   
-  $router::GET('/app/articles', function ($params) {
+  $router::GET("$baseUrl/articles", function ($params) {
     $route = new Articles();
     
     $search = $params[0]['search'] ?? null;
     $page = $params[0]['page'] ?? null;
     
-    dump($params);
-    
     $route->index($page ?? 1, $search);
   });
   
-  $router::GET('/app/articles/:id', function ($params) {
+  $router::GET("$baseUrl/articles/:id", function ($params) {
     $route = new Articles();
     $route->one($params['extra']['id']);
   });
   
-  $router::POSt('/app/articles/:id/delete', function ($params) {
+  $router::POSt("$baseUrl/articles/:id/delete", function ($params) {
     $route = new Articles();
     $id = $params['extra']['id'];
     $route->delete($id);
     header('Location: /app/articles');
   });
   
-  $router::POSt('/app/articles/:id/like', function ($params) {
+  $router::POSt("$baseUrl/articles/:id/like", function ($params) {
     $route = new Articles();
     $id = $params['extra']['id'];
     $route->update($id);
     header('Location: /app/articles');
   });
   
-  $router::GET('/app/comments', function () {
+  $router::GET("$baseUrl/comments", function () {
     $route = new Comments();
     $route->index();
   });
   
-  $router::POST('/app/comment/new', function () {
+  $router::POST("$baseUrl/comment/new", function () {
     $route = new Comments();
     $route->new($_POST);
   });
   
-  $router::GET('/app/articles/new', function () {
+  $router::GET("$baseUrl/articles/new", function () {
     $route = new Articles();
     $route->new();
   });
   
-  $router::POST('/app/articles/new', function () {
+  $router::POST("$baseUrl/articles/new", function () {
     $route = new Articles();
     $route->create($_POST);
     header('Location: /app/articles');
   });
   
-  $router::GET('/app/registration', function () {
+  $router::GET("$baseUrl/registration", function () {
     $route = new Auth();
     $route->registration_get();
   });
   
-  $router::POST('/app/registration', function () {
+  $router::POST("$baseUrl/registration", function () {
     $route = new Auth();
     $route->registration_post($_POST);
   });
   
-  $router::GET('/app/login', function () {
+  $router::GET("$baseUrl/login", function () {
     $route = new Auth();
     $route->login_get();
   });
   
-  $router::POST('/app/login', function () {
+  $router::POST("$baseUrl/login", function () {
     $route = new Auth();
     $route->login_post($_POST);
   });

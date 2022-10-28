@@ -23,7 +23,6 @@
     
     public function index(): void
     {
-      dump($_SERVER);
       View::generate('registration', []);
     }
     

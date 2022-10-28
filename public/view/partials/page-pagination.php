@@ -3,7 +3,7 @@
     <li class="page-item me-2">
       <a
         class="page-link  <?= !$hasPrevPage ? 'disabled' : '' ?>"
-        href="/app/articles?page=<?= $currentPage - 1 ?>"
+        href="<?= $_SERVER['REQUEST_URI'] ?>?page=<?= $currentPage - 1 ?>"
       >
         Previous
       </a>
@@ -21,7 +21,7 @@
     <li class="page-item ms-2">
       <a
         class="page-link  <?= !$hasNextPage ? 'disabled' : '' ?>"
-        href="/app/articles?page=<?= $currentPage + 1 ?>"
+        href="<?= $_SERVER['REQUEST_URI'] ?>?page=<?= $currentPage + 1 ?>"
       >
         Next
       </a>

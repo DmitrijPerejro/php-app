@@ -4,35 +4,42 @@
   
   class Page
   {
+    private string $base;
+    
+    public function __construct()
+    {
+      $this->base = getConfig()['routing']['base'];
+    }
+    
     public function getAll(): array
     {
       return [
         'home' => [
-          'route' => '/app/home',
+          'route' => "$this->base/home",
           'title' => 'Home',
         ],
         'articles' => [
-          'route' => '/app/articles',
+          'route' => "$this->base/articles",
           'title' => 'articles',
         ],
         'new-articles' => [
-          'route' => '/app/articles/new',
+          'route' => "$this->base/articles/new",
           'title' => 'New Article',
         ],
         'users' => [
-          'route' => '/app/users',
+          'route' => "$this->base/users",
           'title' => 'users',
         ],
         'comments' => [
-          'route' => '/app/comments',
+          'route' => "$this->base/comments",
           'title' => 'comments',
         ],
         'login' => [
-          'route' => '/app/login',
+          'route' => "$this->base/login",
           'title' => 'login',
         ],
         'registration' => [
-          'route' => '/app/registration',
+          'route' => "$this->base/registration",
           'title' => 'registration',
         ],
       ];
