@@ -49,4 +49,14 @@
       
       $this->model->create($data);
     }
+    
+    public function update(array $data): void
+    {
+      $this->model->update($data);
+    }
+    
+    public function delete(string $id): void
+    {
+      $this->model->delete($id);
+    }
   }

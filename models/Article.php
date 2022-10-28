@@ -60,4 +60,29 @@
       $insert->setValue(array_values($data));
       $insert->execute();
     }
+    
+    public function update(string $id): void
+    {
+      $select = new Select();
+      $select->setTable($this->table);
+      $select->setColumns('likes');
+      $select->setWhere("id = $id");
+      $data = $select->execute();
+      $likes = $data->fetchAll(PDO::FETCH_ASSOC)[0]['likes'];
+      
+      $update = new Update();
+      $update->setTable($this->table);
+      $update->setWhere("id = $id");
+      $update->setColumn(['likes']);
+      $update->setValue([$likes + 1]);
+      $update->execute();
+    }
+    
+    public function delete(string $id): void
+    {
+      $delete = new Delete();
+      $delete->setTable($this->table);
+      $delete->setWhere("id = $id");
+      $delete->execute();
+    }
   }
