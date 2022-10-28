@@ -18,7 +18,7 @@
       return $data->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function registration(array $data): void
+    public function registration(array $data)
     {
       /*
        * TODO: Add validation for exist user['email']

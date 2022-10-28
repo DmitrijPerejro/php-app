@@ -14,34 +14,48 @@
     public function getAll(): array
     {
       return [
-        'home' => [
-          'route' => "$this->base/home",
-          'title' => 'Home',
+        'public' => [
+          'home' => [
+            'route' => "$this->base/home",
+            'title' => 'Home',
+          ],
+          'articles' => [
+            'route' => "$this->base/articles",
+            'title' => 'articles',
+          ],
+          'new-articles' => [
+            'route' => "$this->base/articles/new",
+            'title' => 'New Article',
+          ],
+          'users' => [
+            'route' => "$this->base/users",
+            'title' => 'users',
+          ],
+          'comments' => [
+            'route' => "$this->base/comments",
+            'title' => 'comments',
+          ],
         ],
-        'articles' => [
-          'route' => "$this->base/articles",
-          'title' => 'articles',
+        'auth' => [
+          'login' => [
+            'route' => "$this->base/login",
+            'title' => 'login',
+          ],
+          'registration' => [
+            'route' => "$this->base/registration",
+            'title' => 'registration',
+          ],
         ],
-        'new-articles' => [
-          'route' => "$this->base/articles/new",
-          'title' => 'New Article',
-        ],
-        'users' => [
-          'route' => "$this->base/users",
-          'title' => 'users',
-        ],
-        'comments' => [
-          'route' => "$this->base/comments",
-          'title' => 'comments',
-        ],
-        'login' => [
-          'route' => "$this->base/login",
-          'title' => 'login',
-        ],
-        'registration' => [
-          'route' => "$this->base/registration",
-          'title' => 'registration',
-        ],
+        'private' => [
+          'dashboard' => [
+            'route' => "$this->base/dashboard",
+            'title' => 'dashboard',
+          ],
+          'logout' => [
+            'route' => "$this->base/logout",
+            'title' => 'logout',
+          ],
+        ]
       ];
     }
     

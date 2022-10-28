@@ -7,6 +7,7 @@
   use Controllers\Comments;
   use Controllers\Error;
   use Controllers\Auth;
+  use Controllers\Dashboard;
   
   $router = new Router();
   $config = getConfig();
@@ -102,6 +103,16 @@
   $router::POST("$baseUrl/login", function () {
     $route = new Auth();
     $route->login_post($_POST);
+  });
+  
+  $router::GET("$baseUrl/logout", function () {
+    $route = new Auth();
+    $route->logout();
+  });
+  
+  $router::GET("$baseUrl/dashboard", function () {
+    $route = new Dashboard();
+    $route->index();
   });
   
   
