@@ -2,11 +2,11 @@
   
   namespace Models;
   
+  use PDO;
   use Core\ORM\Select;
   use Core\ORM\Insert;
-  use Core\ORM\Delete;
   use Core\ORM\Update;
-  use PDO;
+  use Core\ORM\Delete;
   
   class Article
   {
@@ -59,5 +59,22 @@
       $insert->setColumn(array_keys($data));
       $insert->setValue(array_values($data));
       $insert->execute();
+    }
+    
+    public function update(array $data, string $where): void
+    {
+      $select = new Update();
+      $select->setTable($this->table);
+      $select->setValue($data);
+      $select->setWhere($where);
+      $select->execute();
+    }
+    
+    public function delete(string $where): void
+    {
+      $delete = new Delete();
+      $delete->setTable($this->table);
+      $delete->setWhere($where);
+      $delete->execute();
     }
   }

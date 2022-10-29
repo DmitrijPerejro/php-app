@@ -3,6 +3,7 @@
 <?php include __DIR__ . '/../partials/head.php'; ?>
 <body>
 <?php include __DIR__ . '/../partials/navigation.php'; ?>
+<?php dump($_SESSION) ?>
 <div class="container">
   <h1>HOME</h1>
   <?php include __DIR__ . '/../partials/footer.php'; ?>

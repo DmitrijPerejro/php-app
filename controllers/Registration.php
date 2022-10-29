@@ -36,7 +36,12 @@
       
       try {
         $this->model->registration($data);
-        $this->jsonOK($data);
+        $_SESSION['user'] = $data;
+        $_SESSION['auth'] = true;
+        $path = getConfig()['routing']['base'];
+        
+        header("Location: $path");
+        
       } catch (\Exception $exception) {
         $this->jsonNotOK($exception->getMessage());
       }

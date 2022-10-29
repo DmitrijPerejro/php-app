@@ -7,6 +7,7 @@
   use Controllers\Comments;
   use Controllers\Error;
   use Controllers\Auth;
+  use Controllers\Dashboard;
   
   $router = new Router();
   $config = getConfig();
@@ -35,6 +36,32 @@
   $router::GET("$baseUrl/articles/:id", function ($params) {
     $route = new Articles();
     $route->one($params['extra']['id']);
+  });
+  
+  $router::POSt("$baseUrl/articles/:id/delete", function ($params) {
+    global $baseUrl;
+    $route = new Articles();
+    $id = $params['extra']['id'];
+    $route->delete($id);
+    header("Location: $baseUrl/articles");
+  });
+  
+  $router::POSt("$baseUrl/articles/:id/like", function ($params) {
+    global $baseUrl;
+    
+    $route = new Articles();
+    $id = $params['extra']['id'];
+    $route->like($id);
+    header("Location: $baseUrl/articles");
+  });
+  
+  $router::POSt("$baseUrl/articles/:id/update", function ($params) {
+    global $baseUrl;
+    
+    $route = new Articles();
+    $id = $params['extra']['id'];
+    $route->fields($id, $_POST);
+    header("Location: $baseUrl/articles");
   });
   
   $router::GET("$baseUrl/comments", function () {
@@ -76,6 +103,16 @@
   $router::POST("$baseUrl/login", function () {
     $route = new Auth();
     $route->login_post($_POST);
+  });
+  
+  $router::GET("$baseUrl/logout", function () {
+    $route = new Auth();
+    $route->logout();
+  });
+  
+  $router::GET("$baseUrl/dashboard", function () {
+    $route = new Dashboard();
+    $route->index();
   });
   
   

@@ -35,4 +35,12 @@
     {
       $this->loginController->login($data);
     }
+    
+    public function logout(): void
+    {
+      $path = getConfig()['routing']['base'];
+      
+      session_destroy();
+      header("Location: $path/home");
+    }
   }

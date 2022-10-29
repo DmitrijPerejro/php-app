@@ -4,10 +4,10 @@
   
   use View\View;
   
-  class Home implements BaseController
+  class Dashboard implements BaseController
   {
     public function index(): void
     {
-      View::generate('home', []);
+      View::generate('dashboard', []);
     }
   }
