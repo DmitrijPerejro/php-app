@@ -35,6 +35,7 @@
     
     public function sql(): string
     {
+      dump('INSERT INTO ' . $this->table . ' (' . $this->getColumn() . ') VALUES (' . $this->getValue() . ')');
       return 'INSERT INTO ' . $this->table . ' (' . $this->getColumn() . ') VALUES (' . $this->getValue() . ')';
     }
     

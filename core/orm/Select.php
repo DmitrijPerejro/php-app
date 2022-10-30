@@ -3,12 +3,14 @@
   namespace Core\ORM;
   
   use Core\ORM\Connector;
+  use Core\ORM\InnerJoin;
   
   class Select
   {
     protected string $table;
     protected string $columns = '*';
     protected string $where = '';
+    protected string $innerJoin = '';
     protected int $limit = -1;
     protected int $offset = -1;
     
@@ -87,6 +89,10 @@
     {
       $res = "SELECT $this->columns FROM $this->table";
       
+      if (!empty($this->getInnerJoin())) {
+        $res .= " INNER JOIN $this->innerJoin";
+      }
+      
       if (!empty($this->getWhere())) {
         $res .= " WHERE $this->where";
       }
@@ -100,8 +106,23 @@
       }
       
       dump($res);
-      
       return $res;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getInnerJoin(): string
+    {
+      return $this->innerJoin;
+    }
+    
+    /**
+     * @param string $innerJoin
+     */
+    public function setInnerJoin(string $innerJoin): void
+    {
+      $this->innerJoin = $innerJoin;
     }
     
     /**

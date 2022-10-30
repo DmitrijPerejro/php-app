@@ -31,7 +31,9 @@
     
     public function one(string $id): void
     {
-      $data['article'] = $this->model->getOne($id)[0];
+      $res = $this->model->getOne($id);
+      $data['article'] = $res['article'];
+      $data['comments'] = $res['comments'];
       View::generate('article', $data);
     }
     

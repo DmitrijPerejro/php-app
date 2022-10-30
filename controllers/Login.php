@@ -56,8 +56,11 @@
         return;
       }
       
-      dump($data);
-      dump($user);
+      $_SESSION['user'] = $user;
+      $_SESSION['auth'] = true;
+      $path = getConfig()['routing']['base'];
+      
+      header("Location: $path/dashboard");
     }
     
     private function validationEmptyField(array $data): array

@@ -34,10 +34,22 @@
     public function getOne(string $id): array
     {
       $select = new Select();
+      
       $select->setTable($this->table);
       $select->setWhere("id = $id");
       $data = $select->execute();
-      return $data->fetchAll(PDO::FETCH_ASSOC);
+      $article = $data->fetchAll(PDO::FETCH_ASSOC);
+      
+      $select->setTable('comments');
+      $select->setWhere("article_id = $id");
+      $data = $select->execute();
+      $comments = $data->fetchAll(PDO::FETCH_ASSOC);
+      
+      
+      return [
+        'article' => $article[0],
+        'comments' => $comments,
+      ];
     }
     
     public function getTotal($search): int

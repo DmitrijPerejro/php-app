@@ -9,14 +9,25 @@
     protected string $table;
     protected string $value;
     protected string $where;
+    protected Connector $connector;
     
+    public function __construct()
+    {
+      $this->connector = new Connector();
+    }
+    
+    /**
+     * @return void
+     */
     public function execute(): void
     {
-      $connect = new Connector();
-      $PDO = $connect->connect();
+      $PDO = $this->connector->connect();
       $PDO->query(($this->sql()));
     }
     
+    /**
+     * @return string
+     */
     public function sql(): string
     {
       return 'UPDATE ' . $this->getTable() . ' SET ' . $this->getValue() . ' WHERE ' . $this->getWhere();
@@ -62,14 +73,6 @@
       return $this->where;
     }
     
-    /**
-     * @param string $where
-     */
-    public function setWhere(string $where): void
-    {
-      $this->where = $where;
-    }
-    
     private function prepareValues(array $values): string
     {
       $res = '';
@@ -83,5 +86,13 @@
       }
       
       return $res;
+    }
+    
+    /**
+     * @param string $where
+     */
+    public function setWhere(string $where): void
+    {
+      $this->where = $where;
     }
   }

@@ -8,13 +8,14 @@
   use Controllers\Error;
   use Controllers\Auth;
   use Controllers\Dashboard;
+  use Controllers\AuthGuard;
   
   $router = new Router();
   $config = getConfig();
   
   $baseUrl = $config['routing']['base'];
   
-  $router::GET(["$baseUrl", "$baseUrl/home"], function () {
+  $router::GET(["$baseUrl/", "$baseUrl/home"], function () {
     $route = new Home();
     $route->index();
   });
@@ -70,8 +71,11 @@
   });
   
   $router::POST("$baseUrl/comment/new", function () {
+    global $baseUrl;
     $route = new Comments();
     $route->new($_POST);
+    $articleId = $_POST['article_id'];
+    header("Location: $baseUrl/articles/$articleId");
   });
   
   $router::GET("$baseUrl/articles/new", function () {
@@ -111,10 +115,24 @@
   });
   
   $router::GET("$baseUrl/dashboard", function () {
+    AuthGuard::guard();
     $route = new Dashboard();
     $route->index();
   });
   
+  $router::POST("$baseUrl/dashboard/edit/avatar", function () {
+    AuthGuard::guard();
+    $route = new Dashboard();
+    $route->updateAvatar();
+    header('Location: /app/dashboard');
+  });
+  
+  $router::POST("$baseUrl/dashboard/edit/info", function () {
+    AuthGuard::guard();
+    $route = new Dashboard();
+    $route->updateInfo($_POST);
+    header('Location: /app/dashboard');
+  });
   
   try {
     $router::run();

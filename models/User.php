@@ -4,6 +4,8 @@
   
   use Core\ORM\Insert;
   use Core\ORM\Select;
+  use Core\ORM\Update;
+  use Models\Avatar;
   use PDO;
   
   class User
@@ -18,12 +20,8 @@
       return $data->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function registration(array $data)
+    public function registration(array $data): void
     {
-      /*
-       * TODO: Add validation for exist user['email']
-       */
-      
       $insert = new Insert();
       $insert->setTable($this->table);
       $insert->setColumn(array_keys($data));
@@ -39,5 +37,15 @@
       $select->setWhere("email = '$email'");
       $data = $select->execute();
       return $data->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function updateFields(array $data): void
+    {
+      $id = $_SESSION['user']['id'];
+      $update = new Update();
+      $update->setTable('users');
+      $update->setValue($data);
+      $update->setWhere("id = $id");
+      $update->execute();
     }
   }

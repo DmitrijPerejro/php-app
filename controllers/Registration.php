@@ -40,7 +40,7 @@
         $_SESSION['auth'] = true;
         $path = getConfig()['routing']['base'];
         
-        header("Location: $path");
+        header("Location: $path/dashboard");
         
       } catch (\Exception $exception) {
         $this->jsonNotOK($exception->getMessage());
