@@ -104,13 +104,14 @@
       }
       
       if ($callback !== null) {
-        $callback(
-          [
-            array_merge($_POST, $_GET),
-            $requestUri,
-            'extra' => $extra,
-          ]
-        );
+        $result['params'] = array_merge($_POST, $_GET);
+        $result['request'] = $requestUri;
+        
+        foreach ($extra as $k => $v) {
+          $result[$k] = $v;
+        }
+        
+        $callback($result);
       } else {
         throw new \Exception('Route not found', 400);
       }

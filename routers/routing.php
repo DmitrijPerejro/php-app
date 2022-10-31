@@ -36,7 +36,9 @@
   
   $router::GET("$baseUrl/articles/:id", function ($params) {
     $route = new Articles();
-    $route->one($params['extra']['id']);
+    
+    dump($params);
+    $route->one($params['id']);
   });
   
   $router::POST("$baseUrl/articles/:id/comment", function ($params) {
@@ -48,8 +50,8 @@
   });
   
   $router::POST("/app/articles/:id/comment/:commentId/like", function ($params) {
-    $commentId = $params['extra']['commentId'];
-    $articleId = $params['extra']['id'];
+    $commentId = $params['commentId'];
+    $articleId = $params['id'];
     global $baseUrl;
     $route = new Comments();
     $route->like($commentId);

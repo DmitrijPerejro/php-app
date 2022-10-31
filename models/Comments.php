@@ -37,8 +37,6 @@
       $data = $select->execute();
       $likes = $data->fetchAll(PDO::FETCH_ASSOC)[0]['likes'];
       
-      dump($likes);
-      
       $update = new Update;
       $update->setTable($this->table);
       $update->setValue(['likes' => $likes + 1]);
