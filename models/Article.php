@@ -41,10 +41,26 @@
       $article = $data->fetchAll(PDO::FETCH_ASSOC);
       
       $select->setTable('comments');
-      $select->setWhere("article_id = $id");
-      $data = $select->execute();
-      $comments = $data->fetchAll(PDO::FETCH_ASSOC);
+      $select->setWhere("");
+      $select->setColumns(
+        'comments.id as id,
+                 comments.body as body,
+                 comments.create_at as createAt,
+                 comments.parent_id as parent_id,
+                 comments.likes as likes,
+                 users.id as author_id,
+                 users.login as login
+                 '
+      );
+      $select->setInnerJoin(
+        ' INNER JOIN users
+                  ON comments.author_id = users.id
+                  '
+      );
       
+      $data = $select->execute();
+      
+      $comments = $data->fetchAll(PDO::FETCH_ASSOC);
       
       return [
         'article' => $article[0],

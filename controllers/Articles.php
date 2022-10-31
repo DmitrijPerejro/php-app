@@ -32,8 +32,13 @@
     public function one(string $id): void
     {
       $res = $this->model->getOne($id);
+      
       $data['article'] = $res['article'];
-      $data['comments'] = $res['comments'];
+      
+      foreach ($res['comments'] as $comment) {
+        $data['comments'][$comment['id']] = $comment;
+      }
+      
       View::generate('article', $data);
     }
     

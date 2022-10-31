@@ -32,4 +32,9 @@
       
       $this->model->new($data);
     }
+    
+    public function like(string $id): void
+    {
+      $this->model->like($id);
+    }
   }

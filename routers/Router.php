@@ -41,25 +41,35 @@
       $incomingPathAsArray = explode('/', $path);
       $originalPathAsArray = explode('/', parse_url($_SERVER['REQUEST_URI'])['path']);
       
+      
       $p = null;
       $pp = null;
       $position = -1;
+      $data = [];
+      $extra = [];
       
       for ($i = 0; $i < count($incomingPathAsArray); $i++) {
         if (count($incomingPathAsArray) === count($originalPathAsArray)) {
+          
           if (substr($incomingPathAsArray[$i], 0, 1) === ':') {
-            $p = $originalPathAsArray[$i];
-            $pp = substr($incomingPathAsArray[$i], 1);
-            $position = $i;
+            $data[] = [
+              'param' => $originalPathAsArray[$i],
+              'name' => substr($incomingPathAsArray[$i], 1),
+              'position' => $i
+            ];
           }
         }
       }
       
-      if ($p !== null) {
-        $incomingPathAsArray[$position] = $p;
+      if (!empty($data)) {
+        foreach ($data as $d) {
+          $incomingPathAsArray[$d['position']] = $d['param'];
+          $extra[$d['name']] = $d['param'];
+        }
+        
         return [
           'path' => implode('/', $incomingPathAsArray),
-          'extraParams' => [$pp => $p],
+          'extraParams' => $extra,
         ];
       }
       
@@ -83,6 +93,8 @@
       $requestMethod = $_SERVER['REQUEST_METHOD'];
       $callback = null;
       $extra = [];
+      
+      dump("<b>$requestMethod</b> | requestUri -> <b>$requestUri</b>");
       
       foreach (self::$handlers as $handler) {
         if ($handler['method'] === $requestMethod && $handler['path'] === $requestUri) {

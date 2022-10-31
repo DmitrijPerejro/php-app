@@ -39,6 +39,23 @@
     $route->one($params['extra']['id']);
   });
   
+  $router::POST("$baseUrl/articles/:id/comment", function ($params) {
+    global $baseUrl;
+    $route = new Comments();
+    $route->new($_POST);
+    $articleId = $_POST['article_id'];
+    header("Location: $baseUrl/articles/$articleId");
+  });
+  
+  $router::POST("/app/articles/:id/comment/:commentId/like", function ($params) {
+    $commentId = $params['extra']['commentId'];
+    $articleId = $params['extra']['id'];
+    global $baseUrl;
+    $route = new Comments();
+    $route->like($commentId);
+    header("Location: $baseUrl/articles/$articleId#comment-$commentId");
+  });
+  
   $router::POSt("$baseUrl/articles/:id/delete", function ($params) {
     global $baseUrl;
     $route = new Articles();

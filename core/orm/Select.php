@@ -90,7 +90,7 @@
       $res = "SELECT $this->columns FROM $this->table";
       
       if (!empty($this->getInnerJoin())) {
-        $res .= " INNER JOIN $this->innerJoin";
+        $res .= "$this->innerJoin";
       }
       
       if (!empty($this->getWhere())) {
@@ -105,7 +105,6 @@
         $res .= " OFFSET $this->offset";
       }
       
-      dump($res);
       return $res;
     }
     

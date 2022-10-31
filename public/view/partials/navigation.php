@@ -4,7 +4,6 @@
   
   $pages = new Page;
   $active = $pages->getActiveRoute();
-  dump($active);
 ?>
 
 <header>
