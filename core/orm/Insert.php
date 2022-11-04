@@ -77,9 +77,9 @@
       
       foreach ($values as $value) {
         if (empty($res)) {
-          $res .= '\'' . $value . '\'';
+          $res .= '\'' . htmlspecialchars(strip_tags($value)) . '\'';
         } else {
-          $res .= ', \'' . $value . '\'';
+          $res .= ', \'' . htmlspecialchars(strip_tags($value)) . '\'';
         }
       }
       

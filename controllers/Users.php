@@ -5,7 +5,7 @@
   use Models\User;
   use View\View;
   
-  class Users extends JSONController
+  class Users extends JSONController implements ListController
   {
     private User $model;
     
@@ -27,24 +27,8 @@
       View::generate('users', $data);
     }
     
-    public function newUser(array $data): void
+    public function one($id): void
     {
-      try {
-        
-        if (empty($data)) {
-          dump('Data not provided');
-          return;
-        }
-        
-        $this->model->new($data);
-        $this->jsonOK($data);
-      } catch (\Exception $exception) {
-        $this->jsonNotOK($exception->getMessage());
-      }
-    }
     
-    public function new(): void
-    {
-      View::generate('user-new', []);
     }
   }

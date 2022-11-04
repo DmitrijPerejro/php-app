@@ -5,7 +5,7 @@
   use Models\Article;
   use View\View;
   
-  class Articles
+  class Articles implements ListController
   {
     private string $name = 'Article page';
     private $model;
@@ -29,7 +29,7 @@
       View::generate('articles', $data);
     }
     
-    public function one(string $id): void
+    public function one($id): void
     {
       $res = $this->model->getOne($id);
       
