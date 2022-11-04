@@ -25,7 +25,7 @@
       $insert->setTable($this->table);
       $insert->setColumn(array_keys($data));
       $insert->setValue(array_values($data));
-      $insert->execute($data);
+      $insert->execute();
     }
     
     public function like(string $id): void

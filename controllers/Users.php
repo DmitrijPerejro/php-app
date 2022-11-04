@@ -5,20 +5,25 @@
   use Models\User;
   use View\View;
   
-  class Users extends JSONController implements BaseController
+  class Users extends JSONController
   {
-    private string $name = 'Users page';
-    private $model;
+    private User $model;
     
     public function __construct()
     {
       $this->model = new User();
     }
     
-    public function index(): void
+    public function index(int $page, $search): void
     {
-      $data['title'] = $this->name;
-      $data['users'] = $this->model->getAll();
+      $data['users'] = $this->model->getAll($page, $search);
+      $data['total'] = $this->model->getTotal($search);
+      $data['totalPages'] = floor($data['total'] / $this->model->limit);
+      $data['currentPage'] = $page;
+      $data['hasNextPage'] = $data['totalPages'] != $page - 1;
+      $data['hasPrevPage'] = $page !== 1;
+      $data['search'] = $search ?? '';
+      
       View::generate('users', $data);
     }
     

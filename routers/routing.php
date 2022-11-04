@@ -20,15 +20,19 @@
     $route->index();
   });
   
-  $router::GET("$baseUrl/users", function () {
+  $router::GET("$baseUrl/users", function ($data) {
     $route = new Users();
-    $route->index();
+    $search = $data['params']['search'] ?? null;
+    $page = $data['params']['page'] ?? null;
+    
+    $route->index($page ?? 1, $search);
   });
   
-  $router::GET("$baseUrl/articles", function ($params) {
+  $router::GET("$baseUrl/articles", function ($data) {
+    
     $route = new Articles();
-    $search = $params['params']['search'] ?? null;
-    $page = $params['params']['page'] ?? null;
+    $search = $data['params']['search'] ?? null;
+    $page = $data['params']['page'] ?? null;
     
     $route->index($page ?? 1, $search);
   });
@@ -40,6 +44,7 @@
   
   $router::POST("$baseUrl/articles/:id/comment", function ($params) {
     global $baseUrl;
+    dump($params);
     $route = new Comments();
     $route->new($_POST);
     $id = $params['id'];
@@ -134,6 +139,12 @@
     AuthGuard::guard();
     $route = new Dashboard();
     $route->index();
+  });
+  
+  $router::GET("$baseUrl/dashboard/articles", function () {
+    AuthGuard::guard();
+    $route = new Dashboard();
+    $route->myArticles();
   });
   
   $router::POST("$baseUrl/dashboard/edit/avatar", function () {

@@ -8,8 +8,8 @@
 <html lang="en">
 <?php include __DIR__ . '/../partials/head.php'; ?>
 <body>
-
 <?php include __DIR__ . '/../partials/navigation.php'; ?>
+<?php include __DIR__ . '/../partials/breadcrumb.php'; ?>
 <div class="container">
   <div class="card">
     <h5 class="card-header"><?= $article['title'] ?></h5>
@@ -42,7 +42,7 @@
     <button class="btn btn-primary mt-3" type="submit">
       submit
     </button>
-    <input type="hidden" name="author_id" value="<?= SessionManager::user()['id'] ?>">
+    <input type="hidden" name="author_id" value="<?= SessionManager::read('userId') ?>">
     <input type="hidden" name="article_id" value="<?= $article['id'] ?>">
   </form>
   <hr class="mt-5 mb-5">

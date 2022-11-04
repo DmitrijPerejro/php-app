@@ -3,6 +3,7 @@
 <?php include __DIR__ . '/../partials/head.php'; ?>
 <body>
 <?php include __DIR__ . '/../partials/navigation.php'; ?>
+<?php include __DIR__ . '/../partials/breadcrumb.php'; ?>
 <div class="container">
   
   <div class="d-flex justify-content-between align-items-center mb-3">

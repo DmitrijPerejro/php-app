@@ -5,6 +5,7 @@
   use View\View;
   use Models\User;
   use Models\Avatar;
+  use Models\Article;
   use Core\SessionManager;
   
   class Dashboard implements BaseController
@@ -40,5 +41,14 @@
         $_SESSION['user'][$key] = $value;
       }
       
+    }
+    
+    public function myArticles(): void
+    {
+      $model = new Article;
+      $articles = $model->getMyArticles(SessionManager::read('userId'));
+      $data['articles'] = $articles;
+      
+      View::generate('dashboard/articles', $data);
     }
   }

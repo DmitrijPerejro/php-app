@@ -10,6 +10,7 @@
   
   class Article
   {
+    public int $limit = 10;
     private string $table = "articles";
     
     public function getAll($page, $search): array
@@ -19,8 +20,8 @@
       
       
       if ($page !== null) {
-        $select->setOffset($page === 1 ? 0 : ($page - 1) * 10);
-        $select->setLimit(10);
+        $select->setOffset($page === 1 ? 0 : ($page - 1) * $this->limit);
+        $select->setLimit($this->limit);
       }
       
       if ($search !== null) {
@@ -41,7 +42,8 @@
       $article = $data->fetchAll(PDO::FETCH_ASSOC);
       
       $select->setTable('comments');
-      $select->setWhere("");
+      $select->setWhere("article_id = $id");
+      
       $select->setColumns(
         'comments.id as id,
                  comments.body as body,
@@ -66,6 +68,17 @@
         'article' => $article[0],
         'comments' => $comments,
       ];
+    }
+    
+    public function getMyArticles(int $author_id): array
+    {
+      $select = new Select();
+      $select->setTable($this->table);
+      $select->setWhere("author_id = $author_id");
+      $data = $select->execute();
+      $articles = $data->fetchAll(PDO::FETCH_ASSOC);
+      
+      return $articles;
     }
     
     public function getTotal($search): int

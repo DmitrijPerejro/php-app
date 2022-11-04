@@ -20,7 +20,7 @@
       $data['title'] = $this->name;
       $data['articles'] = $this->model->getAll($page, $search);
       $data['total'] = $this->model->getTotal($search);
-      $data['totalPages'] = floor($data['total'] / 10);
+      $data['totalPages'] = floor($data['total'] / $this->model->limit);
       $data['currentPage'] = $page;
       $data['hasNextPage'] = $data['totalPages'] != $page - 1;
       $data['hasPrevPage'] = $page !== 1;
