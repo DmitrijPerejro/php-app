@@ -5,18 +5,15 @@
   use View\View;
   use Models\User;
   use Models\Avatar;
+  use Core\SessionManager;
   
   class Dashboard implements BaseController
   {
     public function index(): void
     {
-      $model = new Avatar();
-      $user = $_SESSION['user'];
-      
-      $avatar = $model->get($user['id'])[0];
-      $user['avatar'] = $avatar;
+      $model = new User();
+      $user = $model->getOne(SessionManager::read('userId'));
       $data['user'] = $user;
-      
       
       View::generate('dashboard', $data);
     }

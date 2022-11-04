@@ -30,13 +30,8 @@
       return empty($_SESSION);
     }
     
-    public static function user(): array
-    {
-      return $_SESSION['user'];
-    }
-    
     public static function isAuth(): bool
     {
-      return $_SESSION['auth'] ?? false;
+      return isset($_SESSION['userId']);
     }
   }

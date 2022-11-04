@@ -5,6 +5,7 @@
   use View\View;
   use Models\User;
   use Core\Crypto;
+  use Core\SessionManager;
   
   class Registration extends JSONController implements BaseController
   {
@@ -35,9 +36,9 @@
       $data['password'] = $this->crypto->encrypt($data['password']);
       
       try {
-        $this->model->registration($data);
-        $_SESSION['user'] = $data;
-        $_SESSION['auth'] = true;
+        $id = $this->model->registration($data);
+        SessionManager::write('userId', $id);
+        
         $path = getConfig()['routing']['base'];
         
         header("Location: $path/dashboard");

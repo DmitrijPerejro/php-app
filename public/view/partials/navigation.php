@@ -1,9 +1,11 @@
 <?php
   
   use Models\Page;
+  use Core\SessionManager;
   
   $pages = new Page;
   $active = $pages->getActiveRoute();
+  $isAuth = SessionManager::isAuth();
 ?>
 
 <header>
@@ -18,7 +20,7 @@
           </a>
         <?php endforeach; ?>
         
-        <?php if (!empty($_SESSION) && $_SESSION['auth']): ?>
+        <?php if ($isAuth): ?>
           <div class="ms-auto">
             <?php foreach ($pages->getAll()['private'] as $page): ?>
               <a href="<?= $page['route'] ?>"

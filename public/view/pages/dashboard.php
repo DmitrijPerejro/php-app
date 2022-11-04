@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <?php include __DIR__ . '/../partials/head.php'; ?>
+
 <body>
 <?php include __DIR__ . '/../partials/navigation.php'; ?>
 <div class="container">
@@ -8,9 +9,9 @@
     <div class="col col-md-4">
       <a href=""></a>
       <img
-        src="/app/avatars/<?= $user['avatar']['avatar'] ?>"
+        src="/app/avatars/..."
         class="rounded-circle"
-        alt="avatar of <?= $_SESSION['user']['login'] ?>"
+        alt="avatar of <?= $user['login'] ?>"
         width="200"
         height="200"
       >

@@ -2,6 +2,7 @@
   
   namespace Controllers;
   
+  use Core\SessionManager;
   use Models\User;
   use View\View;
   use Core\Crypto;
@@ -31,7 +32,7 @@
         return;
       }
       
-      $user = $this->model->login($data)[0];
+      $user = $this->model->login($data);
       
       if (empty($user)) {
         $email = $data['email'];
@@ -56,8 +57,7 @@
         return;
       }
       
-      $_SESSION['user'] = $user;
-      $_SESSION['auth'] = true;
+      SessionManager::write('userId', $user['id']);
       $path = getConfig()['routing']['base'];
       
       header("Location: $path/dashboard");

@@ -27,17 +27,14 @@
   
   $router::GET("$baseUrl/articles", function ($params) {
     $route = new Articles();
-    
-    $search = $params[0]['search'] ?? null;
-    $page = $params[0]['page'] ?? null;
+    $search = $params['params']['search'] ?? null;
+    $page = $params['params']['page'] ?? null;
     
     $route->index($page ?? 1, $search);
   });
   
   $router::GET("$baseUrl/articles/:id", function ($params) {
     $route = new Articles();
-    
-    dump($params);
     $route->one($params['id']);
   });
   
@@ -45,8 +42,8 @@
     global $baseUrl;
     $route = new Comments();
     $route->new($_POST);
-    $articleId = $_POST['article_id'];
-    header("Location: $baseUrl/articles/$articleId");
+    $id = $params['id'];
+    header("Location: $baseUrl/articles/$id");
   });
   
   $router::POST("/app/articles/:id/comment/:commentId/like", function ($params) {
@@ -61,7 +58,7 @@
   $router::POSt("$baseUrl/articles/:id/delete", function ($params) {
     global $baseUrl;
     $route = new Articles();
-    $id = $params['extra']['id'];
+    $id = $params['id'];
     $route->delete($id);
     header("Location: $baseUrl/articles");
   });
@@ -70,7 +67,7 @@
     global $baseUrl;
     
     $route = new Articles();
-    $id = $params['extra']['id'];
+    $id = $params['id'];
     $route->like($id);
     header("Location: $baseUrl/articles");
   });
@@ -79,7 +76,7 @@
     global $baseUrl;
     
     $route = new Articles();
-    $id = $params['extra']['id'];
+    $id = $params['id'];
     $route->fields($id, $_POST);
     header("Location: $baseUrl/articles");
   });

@@ -20,13 +20,23 @@
       return $data->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function registration(array $data): void
+    public function getOne($id): array
+    {
+      $select = new Select();
+      $select->setTable($this->table);
+      $select->setWhere("id = $id");
+      $data = $select->execute();
+      return $data->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function registration(array $data): int
     {
       $insert = new Insert();
       $insert->setTable($this->table);
       $insert->setColumn(array_keys($data));
       $insert->setValue(array_values($data));
-      $insert->execute();
+      return $insert->execute(true);
+      
     }
     
     public function login(array $data): array
@@ -36,7 +46,10 @@
       $select->setTable($this->table);
       $select->setWhere("email = '$email'");
       $data = $select->execute();
-      return $data->fetchAll(PDO::FETCH_ASSOC);
+      
+      $res = $data->fetch(PDO::FETCH_ASSOC);
+      
+      return $res;
     }
     
     public function updateFields(array $data): void

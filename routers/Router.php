@@ -107,8 +107,8 @@
         $result['params'] = array_merge($_POST, $_GET);
         $result['request'] = $requestUri;
         
-        foreach ($extra as $k => $v) {
-          $result[$k] = $v;
+        foreach ($extra as $key => $value) {
+          $result[$key] = $value;
         }
         
         $callback($result);

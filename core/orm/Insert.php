@@ -26,16 +26,16 @@
       $this->table = $table;
     }
     
-    public function execute(): void
+    public function execute()
     {
       $connect = new Connector();
       $PDO = $connect->connect();
       $PDO->query(($this->sql()));
+      return $PDO->lastInsertId();
     }
     
     public function sql(): string
     {
-      dump('INSERT INTO ' . $this->table . ' (' . $this->getColumn() . ') VALUES (' . $this->getValue() . ')');
       return 'INSERT INTO ' . $this->table . ' (' . $this->getColumn() . ') VALUES (' . $this->getValue() . ')';
     }
     
@@ -84,5 +84,14 @@
       }
       
       return $res;
+    }
+    
+    private function getLastInsertId(): int
+    {
+      $connect = new Connector();
+      $PDO = $connect->connect();
+      $res = $PDO->lastInsertId();
+      dump($res);
+      return 1;
     }
   }
