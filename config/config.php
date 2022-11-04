@@ -1,6 +1,6 @@
 <?php
   function getConfig()
-    dump($_SERVER['SERVER_ADDR']);
+    var_dump($_SERVER['SERVER_ADDR']);
   {
     return $_SERVER['SERVER_ADDR'] === '127.0.0.1' ?
       include __DIR__ . '/dev.config.php' :
