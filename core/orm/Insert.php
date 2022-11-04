@@ -3,6 +3,7 @@
   namespace Core\ORM;
   
   use Core\ORM\Connector;
+  use Core\Sanitizer;
   
   class Insert
   {
@@ -77,21 +78,12 @@
       
       foreach ($values as $value) {
         if (empty($res)) {
-          $res .= '\'' . htmlspecialchars(strip_tags($value)) . '\'';
+          $res .= '\'' . Sanitizer::sanitize($value) . '\'';
         } else {
-          $res .= ', \'' . htmlspecialchars(strip_tags($value)) . '\'';
+          $res .= ', \'' . Sanitizer::sanitize($value) . '\'';
         }
       }
       
       return $res;
-    }
-    
-    private function getLastInsertId(): int
-    {
-      $connect = new Connector();
-      $PDO = $connect->connect();
-      $res = $PDO->lastInsertId();
-      dump($res);
-      return 1;
     }
   }
