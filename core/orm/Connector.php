@@ -15,7 +15,7 @@
     
     public function __construct()
     {
-      $config = include __DIR__ . '/config.php';
+      $config = getConfig()['dataBase'];
       
       $this->db = $config['db'];
       $this->host = $config['host'];
